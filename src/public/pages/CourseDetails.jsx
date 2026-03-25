@@ -93,7 +93,7 @@ export default function CourseDetails() {
             </h1>
 
             <p className="opacity-90 max-w-lg">
-              {course.description} 
+              {course.description}
             </p>
 
             <div className="text-3xl  font-bold">
@@ -162,7 +162,7 @@ export default function CourseDetails() {
             <div key={unit.id} className="p-5 flex gap-4 items-center">
 
               <div
-                className="w-8 h-8 rounded-full text-white flex items-center justify-center text-sm font-bold"
+                className="w-8 h-8 min-w-[32px] min-h-[32px] flex-shrink-0 rounded-full text-white flex items-center justify-center text-sm font-bold"
                 style={{ backgroundColor: primary }}
               >
                 {index + 1}
@@ -176,6 +176,38 @@ export default function CourseDetails() {
           ))}
         </div>
 
+      </div>
+
+      <div className="items-center text-center py-20 ">
+        
+
+        {/* ACTION BUTTONS */}
+        {!user && (
+          <a
+            href="/login"
+            className="inline-block px-8 py-3  text-black rounded-xl font-semibold"
+          >
+            Login to Enroll
+          </a>
+        )}
+
+        {user && owned && (
+          <button
+            onClick={() => (window.location = `/student/watch/${courseId}`)}
+            className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold"
+          >
+            Continue Learning
+          </button>
+        )}
+
+        {user && !owned && (
+          <button
+            onClick={() => buy(courseId)}
+            className="px-8 py-3 bg-white text-black rounded-xl font-semibold"
+          >
+            Purchase Course
+          </button>
+        )}
       </div>
     </div>
   );
