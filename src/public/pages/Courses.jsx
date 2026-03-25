@@ -36,9 +36,9 @@ export default function Courses() {
   return (
     <div className="min-h-screen bg-gray-50" >
 
-      {/* --- HERO HEADER (Branding JSON Based) --- */}
+     
       <header
-        className="py-20 text-center text-white"
+        className="py-20 text-center text-white px-6"
         style={{ backgroundColor: primary }}
       >
         <h1 className="text-4xl md:text-5xl font-black mb-4">

@@ -41,6 +41,7 @@ export default function Register() {
         navigate("/student");
       }
     } catch (err) {
+      console.log(err)
       setError(
         err.response?.data?.message ||
         "Registration failed. Try again."

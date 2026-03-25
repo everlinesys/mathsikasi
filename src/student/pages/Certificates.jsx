@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import api from "../../shared/api";
 import { useBranding } from "../../shared/hooks/useBranding";
 import { Award, Download, FileCheck, Trophy, ExternalLink, GraduationCap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentCertificates() {
   const brand = useBranding();
   const theme = brand.theme;
   const primary = brand.colors?.primary || "#059669";
-
+  const navigate = useNavigate();
   const [certs, setCerts] = useState(null);
 
   useEffect(() => {
@@ -34,14 +35,14 @@ export default function StudentCertificates() {
 
   return (
     <div className="max-w-6xl mx-auto p-6 lg:p-10 space-y-10">
-      
+
       {/* HEADER: ACHIEVEMENT BANNER */}
       <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 lg:p-12 text-white shadow-2xl">
-        <div 
+        <div
           className="absolute -top-24 -right-24 w-96 h-96 rounded-full blur-[120px] opacity-20"
           style={{ backgroundColor: primary }}
         />
-        
+
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-4 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold uppercase tracking-widest">
@@ -52,7 +53,7 @@ export default function StudentCertificates() {
               Congratulations! Here are your officially verified certificates. You can download or share them directly on LinkedIn.
             </p>
           </div>
-          
+
           <div className="hidden lg:block">
             <Trophy size={120} className="text-white/10 rotate-12" />
           </div>
@@ -71,9 +72,10 @@ export default function StudentCertificates() {
               Complete your first course to unlock your professional certificate and share it with the world!
             </p>
           </div>
-          <button 
+          <button
             className="px-8 py-3 rounded-2xl text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-transform active:scale-95"
             style={{ backgroundColor: primary }}
+            onClick={() => navigate("/courses")}
           >
             Browse Courses
           </button>
@@ -100,7 +102,7 @@ export default function StudentCertificates() {
                   <FileCheck size={48} strokeWidth={1} />
                 </div>
               )}
-              
+
               {/* DATE OVERLAY */}
               <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-[10px] font-black uppercase tracking-tighter text-slate-600 shadow-sm">
                 Issued {new Date(c.issuedAt).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}
@@ -128,7 +130,7 @@ export default function StudentCertificates() {
                 >
                   <Download size={16} /> PDF
                 </a>
-                
+
                 <button className="px-4 py-3 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors">
                   <ExternalLink size={16} />
                 </button>
@@ -143,10 +145,10 @@ export default function StudentCertificates() {
 
 // Sub-component for simple shield
 function ShieldCheck({ size, className }) {
-    return (
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            <path d="m9 12 2 2 4-4" />
-        </svg>
-    );
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
 }
