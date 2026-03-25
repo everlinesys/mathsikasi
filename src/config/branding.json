@@ -1,13 +1,13 @@
 {
   "default": {
-    "siteName": "LexAcademy",
-    "tagline": "Professional Legal Education for Modern Practitioners",
+    "siteName": "ASP Fin Academy",
+    "tagline": "Become a Strategic Mutual fund DIY Investor",
 
     "primaryColor": "#2b6cb0",
     "theme": "formalLight",
 
     "logo": "/lexacademy-logo.png",
-    "students": "5K",
+    "students": "2K",
 
     "colors": {
       "primary": "#2b6cb0",
@@ -15,25 +15,22 @@
     },
 
     "hero": {
-      "title": "Master Law with Confidence.",
-      "subtitle": "Industry-focused legal training designed for law students, junior advocates, and legal professionals preparing for real-world practice.",
-      "image": "/hero.jpg",
+      "title": "Become a Strategic Mutual fund DIY Investor.",
+      "subtitle": "The Asp Fin Academy welcomes you! We offer courses based on a variety of subjects including investing, personal finance, insurance and the stock market. Now choose a topic and start learning.",
+      "image": "/coursepic1.jpg",
 
-    
-      "bunnyVideoId": "231392af-8a40-4586-9879-897d3f02b853",
+      "bunnyVideoId": "67deaca4-f378-4b66-adec-1d3330b0308d",
       "poster": "/law-hero.png"
     },
 
     "preview": {
-      "badge": "Trusted Legal Training",
-      "title": "Practical Legal Learning",
-      "highlight": "Built for Real Practice.",
-      "description": "Structured courses covering core legal concepts, procedural law, drafting skills, and case-based learning — guided by experienced legal professionals.",
+      "badge": "Trusted Financial Training",
+      "title": "If they can do it, you can too.",
+      "highlight": "Become a smart do-it-yourself investor",
+      "description": "Our courses are designed to empower you with the knowledge and confidence to take control of your financial future. Whether you're a beginner or looking to deepen your understanding, our expert-led sessions and practical case-based learning will guide you every step of the way.",
 
-      
-      "bunnyVideoId": "231392af-8a40-4586-9879-897d3f02b853",
+      "bunnyVideoId": "67deaca4-f378-4b66-adec-1d3330b0308d",
 
-     
       "libraryId": "594138",
 
       "poster": "/law-hero.png",
@@ -48,30 +45,30 @@
 
     "reviews": [
       {
-        "name": "Adv. Neha George",
-        "role": "Junior Advocate",
+        "name": "Neha George",
+        "role": "Working Professional",
         "rating": 5,
-        "text": "The drafting modules and procedural law explanations helped me gain confidence in real court work."
+        "text": "ASP helped me understand mutual funds clearly and build a disciplined investment plan with confidence."
       },
       {
         "name": "Rahul Krishnan",
-        "role": "Final Year Law Student",
+        "role": "Young Investor",
         "rating": 5,
-        "text": "Clear, practical, and focused on real legal skills — not just theory."
+        "text": "Simple, transparent, and practical advice — perfect for anyone starting their investment journey."
       },
       {
-        "name": "Adv. Anandhu Sundaran",
-        "role": "Litigation Associate",
+        "name": "Anandhu Sundaran",
+        "role": "Business Owner",
         "rating": 4,
-        "text": "Excellent refresher modules for procedural law and documentation."
+        "text": "Great guidance on portfolio structuring and long-term wealth planning. Very reliable service."
       }
     ],
 
     "contact": {
-      "email": "support@lexacademy.in",
+      "email": "aspfinacademy@gmail.com",
       "phone": "+91 9400 690 911",
       "whatsapp": "+91 9400 690 911",
-      "address": "Kochi, Kerala, India",
+      "address": "Pathamanthitta, Kerala, India",
       "supportName": "Academic Support Team",
       "image": "/law-hero.png"
     }

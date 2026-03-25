@@ -23,6 +23,7 @@ import AdminCourses from "../admin/pages/Courses";
 import AdminStudents from "../admin/pages/Students";
 import EditCourse from "../admin/pages/EditCourse";
 import CourseCurriculum from "../admin/pages/CourseCurriculum";
+import PageNotFound from "../public/pages/PageNotFound";
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
             { path: "courses", element: <Courses /> },
             { path: "contact", element: <Contact /> },
             { path: "courses/:courseId", element: <CourseDetails /> },
+            { path: "course/:courseId", element: <CourseDetails /> },
 
 
         ],
@@ -54,7 +56,7 @@ export const router = createBrowserRouter([
                     { path: "profile", element: <StudentProfile /> },
                     { path: "security", element: <StudentSecurity /> },
                     { path: "history", element: <StudentHistory /> },
-                    { path: "watch/:courseId", element: <WatchCourse /> }
+                    { path: "watch/:courseId", element: <WatchCourse /> },
 
                 ],
             },
@@ -82,7 +84,7 @@ export const router = createBrowserRouter([
 
     {
         path: "*",
-        element: <div style={{ padding: 40 }}>Page Not Found</div>,
+        element: <PageNotFound />,
     }
 
 ]);

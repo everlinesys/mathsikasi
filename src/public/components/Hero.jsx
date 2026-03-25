@@ -79,14 +79,14 @@ export default function Hero() {
 
           {/* Title */}
           <h1
-            className="text-4xl md:text-6xl font-black leading-[1.1] tracking-tight"
+            className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight"
             style={{ color: brand.colors.primary }}
           >
             {brand.hero?.title || "Welcome to eLearn"}
           </h1>
 
           {/* Subtitle */}
-          <p className={`${brand.theme.text?.body || ""} opacity-80 max-w-lg text-lg md:text-xl`}>
+          <p className={`${brand.theme.text?.body || ""} opacity-80 max-w-lg text-xl md:text-xl`}>
             {brand.hero?.subtitle || "Practical courses for real growth."}
           </p>
 

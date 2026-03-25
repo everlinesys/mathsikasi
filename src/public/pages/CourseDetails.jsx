@@ -20,6 +20,10 @@ export default function CourseDetails() {
 
   useEffect(() => {
     async function load() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
       try {
         const courseRes = await api.get(`/courses/${courseId}`);
         const unitsRes = await api.get(`/units?courseId=${courseId}`);
@@ -62,7 +66,7 @@ export default function CourseDetails() {
           razorpay_signature: response.razorpay_signature,
           courseId,
         });
-        window.location = `/watch/${courseId}`;
+        window.location = `/student/watch/${courseId}`;
       },
     };
 
@@ -89,11 +93,11 @@ export default function CourseDetails() {
             </h1>
 
             <p className="opacity-90 max-w-lg">
-              {course.description}
+              {course.description} 
             </p>
 
-            <div className="text-3xl font-bold">
-              ₹{course.price}
+            <div className="text-3xl  font-bold">
+              ₹{course.price} <span className="line-through text-white/70 text-2xl"> ₹{course.oldPrice}</span>
             </div>
 
             {/* ACTION BUTTONS */}
@@ -108,7 +112,7 @@ export default function CourseDetails() {
 
             {user && owned && (
               <button
-                onClick={() => (window.location = `/watch/${courseId}`)}
+                onClick={() => (window.location = `/student/watch/${courseId}`)}
                 className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold"
               >
                 Continue Learning

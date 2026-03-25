@@ -1,10 +1,12 @@
 import { MdMenu, MdNotifications, MdPerson } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../shared/auth";
+import { useBranding } from "../../shared/hooks/useBranding";
 
 export default function StudentHeader({ onMenuClick }) {
     const navigate = useNavigate();
     const user = getUser();
+    const brand= useBranding();
 
     return (
         <header className="h-16 bg-white border-b flex items-center justify-between px-6 shadow-sm">
@@ -22,7 +24,7 @@ export default function StudentHeader({ onMenuClick }) {
                 </button>
 
                 <h1 className="text-md lg:text-lg font-semibold text-gray-800" style={{fontSize:"medium" , fontWeight:"bold"}}>
-                    Student Dashboard
+                    {brand.siteName}
                 </h1>
             </div>
 

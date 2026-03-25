@@ -29,15 +29,15 @@ export default function FeaturedCoursesStrip() {
     };
 
     return (
-        <section className="bg-white py-6 overflow-hidden"
+        <section className="bg-white py-6 overflow-hidden" id="courses"
         >
 
-            <div className="max-w-screen mx-auto px-12 py-6 " style={{ backgroundColor: brand.colors.primary }}>
+            <div className="max-w-screen mx-auto px-6 py-6 " style={{ backgroundColor: brand.colors.primary }}>
 
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6 text-white">
-                    <h2 className="text-2xl font-bold">
-                        Hot new releases →
+                    <h2 className="text-xl font-bold">
+                        Our Courses →
                     </h2>
 
                     <Link

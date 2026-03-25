@@ -34,7 +34,7 @@ export default function Courses() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" >
 
       {/* --- HERO HEADER (Branding JSON Based) --- */}
       <header

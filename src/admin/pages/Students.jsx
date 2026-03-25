@@ -181,7 +181,7 @@ export default function Students() {
                 <div className="font-semibold">
                   {u.name || "Unnamed User"}
                 </div>
-                <div className="text-xs text-slate-400">
+                <div className="text-xs text-slate-100">
                   {u.email}
                 </div>
               </div>
