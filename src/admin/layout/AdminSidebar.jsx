@@ -9,6 +9,7 @@ import {
 import { useBranding } from "../../shared/hooks/useBranding";
 import { useEffect, useState } from "react";
 import api from "../../shared/api";
+import { ClipboardCheck } from "lucide-react";
 
 export default function AdminSidebar({ open, onClose }) {
   const brand = useBranding();
@@ -19,6 +20,7 @@ export default function AdminSidebar({ open, onClose }) {
   const menu = [
     { name: "Dashboard", path: "/admin", icon: <MdDashboard size={20} /> },
     { name: "Courses", path: "/admin/courses", icon: <MdMenuBook size={20} /> },
+    { name: "Certifications", path: "/admin/tests", icon: <ClipboardCheck size={20} /> },
     { name: "Students", path: "/admin/students", icon: <MdPeople size={20} /> },
     { name: "Settings", path: "/admin/settings", icon: <MdSettings size={20} /> },
   ];

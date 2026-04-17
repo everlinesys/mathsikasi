@@ -24,6 +24,8 @@ import AdminStudents from "../admin/pages/Students";
 import EditCourse from "../admin/pages/EditCourse";
 import CourseCurriculum from "../admin/pages/CourseCurriculum";
 import PageNotFound from "../public/pages/PageNotFound";
+import Tests from "../admin/pages/Tests";
+import StudentTest from "../student/pages/StudentTest";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +59,7 @@ export const router = createBrowserRouter([
                     { path: "security", element: <StudentSecurity /> },
                     { path: "history", element: <StudentHistory /> },
                     { path: "watch/:courseId", element: <WatchCourse /> },
+                    { path: "test/:courseId", element: <StudentTest /> },
 
                 ],
             },
@@ -77,6 +80,7 @@ export const router = createBrowserRouter([
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
                     { path: "students", element: <AdminStudents /> },
                     { path: "settings", element: <AdminSettings /> },
+                    { path: "tests", element: <Tests /> },
                 ],
             },
         ],

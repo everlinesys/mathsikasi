@@ -214,7 +214,7 @@ export default function UnitEditor({ unit }) {
               </h4>
 
               {c.description && (
-                <p className="text-sm text-slate-400 mt-1">
+                <p className="text-sm text-slate-400 mt-1 leading-relaxed whitespace-pre-line">
                   {c.description}
                 </p>
               )}
