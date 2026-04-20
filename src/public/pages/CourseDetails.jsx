@@ -89,14 +89,15 @@ export default function CourseDetails() {
   if (!course) return <div className="py-20 text-center">Course not found!!!.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 ">
 
       {/* ===== HERO ===== */}
       <div
         className="text-white py-16 "
         style={{ backgroundColor: primary }}
       >
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center md:px-16">
+
 
           {/* LEFT */}
           <div className="space-y-6">
@@ -248,6 +249,8 @@ export default function CourseDetails() {
           </a>
         )}
 
+
+
         {user && owned && (
           <button
             onClick={() => (window.location = `/student/watch/${courseId}`)}
@@ -265,6 +268,14 @@ export default function CourseDetails() {
             Purchase Course
           </button>
         )}
+        {/* {user && !owned && (
+              <button
+                onClick={handleWhatsAppEnroll}
+                className="px-8 py-3 bg-green-500 text-white rounded-xl font-semibold"
+              >
+                Enroll via WhatsApp
+              </button>
+            )} */}
       </div>
     </div>
   );

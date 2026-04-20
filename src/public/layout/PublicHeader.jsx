@@ -8,7 +8,7 @@ export default function PublicHeader() {
   const brand = useBranding();
 
   // ✅ get theme config safely
-  const theme = themes?.[brand.theme] || themes.darkModern;
+  const theme = themes?.[brand.theme] || themes.softSaaSMarketing;
 
   return (
     <header className={`${theme.layout.header} shadow-sm`}>
@@ -18,8 +18,9 @@ export default function PublicHeader() {
         <Link
           to="/"
           className={`${theme.text.title} text-lg`}
-        >
-          {brand.siteName?.toUpperCase() || "ELearn"}
+        > 
+        <img src="/logo.png" alt="" className="h-19"/>
+          {/* {brand.siteName?.toUpperCase() || "ELearn"} */}
         </Link>
 
         {/* Navigation */}

@@ -1,74 +1,93 @@
 {
   "default": {
-    "siteName": "Anandh Unni Experiments",
-    "tagline": "Master Video Editing, Graphics & AI Visual Creation",
+    "siteName": "Mathsikasi",
+    "tagline": "Strong Foundations. Confident Students.",
 
     "primaryColor": "#0f172a",
-    "theme": "darkModern",
+    "theme": "formalLight",
 
-    "logo": "/auelogo.jpg",
-    "students": "200",
+    "logo": "/logo.png",
+    "students": "500+",
 
     "colors": {
       "primary": "#0f172a",
-      "accent": "#22c55e"
+      "accent": "#3b82f6"
     },
 
     "hero": {
-      "title": "Create Stunning Visuals with Editing, Graphics & AI",
-      "subtitle": "Learn video editing, motion graphics, and AI-powered design techniques to build content that stands out. From beginner to advanced workflows, everything you need is here.",
+      "title": "Master Maths with Confidence",
+      "subtitle": "From Class 8 to Degree level, we simplify Maths, Hindi, and core subjects with clear concepts, step-by-step methods, and exam-focused preparation.",
       "image": "/hero.png",
 
       "bunnyVideoId": "replace-with-your-video-id",
-      "poster": "/hero-poster.jpg"
+      "poster": "/maths-hero-poster.jpg"
     },
 
     "preview": {
-      "badge": "Creative Skill Academy",
-      "title": "If you can imagine it, you can create it.",
-      "highlight": "Master Editing, Graphics & AI Tools",
-      "description": "Our courses focus on real-world creative workflows — from editing cinematic videos to designing high-quality graphics and using AI tools to speed up your process. Learn by building actual projects, not just theory.",
+      "badge": "Trusted Tuition Centre",
+      "title": "Understanding beats memorizing.",
+      "highlight": "Concept-Based Learning for Real Results",
+      "description": "We focus on deep understanding rather than rote learning. Each concept is broken down into simple steps so students can solve problems independently and perform confidently in exams.",
 
       "bunnyVideoId": "replace-with-your-video-id",
       "libraryId": "your-library-id",
-      "poster": "/preview-poster.jpg",
+      "poster": "/maths-preview.jpg",
 
       "videoUrl": "https://youtube.com",
 
       "perks": [
-        { "value": "PROJECT", "label": "Real Project-Based Learning" },
-        { "value": "AI POWER", "label": "AI-Driven Creative Workflows" }
+        { "value": "CONCEPT", "label": "Strong Concept Clarity" },
+        { "value": "EXAM READY", "label": "Exam-Oriented Practice" }
       ]
     },
 
+    "courses": [
+      {
+        "title": "Kerala Syllabus (Class 8–10)",
+        "description": "Complete Maths guidance with step-by-step problem solving and exam preparation."
+      },
+      {
+        "title": "Higher Secondary (Plus One & Plus Two)",
+        "description": "Advanced Maths with focus on problem-solving techniques and board exam strategies."
+      },
+      {
+        "title": "Degree Level Maths",
+        "description": "Clear understanding of higher-level topics with simplified explanations."
+      },
+      {
+        "title": "Hindi & Other Subjects",
+        "description": "Support for language and additional subjects with structured learning."
+      }
+    ],
+
     "reviews": [
       {
-        "name": "Arjun Nair",
-        "role": "Content Creator",
+        "name": "Anjali S",
+        "role": "Class 10 Student",
         "rating": 5,
-        "text": "I learned professional video editing and started creating content that actually stands out. The AI tools section is a game changer."
+        "text": "Maths became so easy after joining. Concepts are explained clearly and I scored much better in exams."
       },
       {
-        "name": "Fathima Shirin",
-        "role": "Freelance Designer",
+        "name": "Rahul K",
+        "role": "Plus Two Student",
         "rating": 5,
-        "text": "Finally understood how to combine design + editing + AI. My freelance income improved a lot after this."
+        "text": "Difficult problems are broken down step by step. Helped me gain confidence in Maths."
       },
       {
-        "name": "Nikhil Raj",
-        "role": "YouTuber",
-        "rating": 4,
-        "text": "Clear, practical, and straight to the point. Helped me level up my video quality and workflow."
+        "name": "Fathima P",
+        "role": "Parent",
+        "rating": 5,
+        "text": "Very structured teaching. My child improved a lot in both understanding and marks."
       }
     ],
 
     "contact": {
-      "email": "support@anandhunni.com",
+      "email": "support@mathsikasi.com",
       "phone": "+91 90000 00000",
       "whatsapp": "+91 90000 00000",
       "address": "Kerala, India",
-      "supportName": "Creative Support Team",
-      "image": "/support-dark.jpg"
+      "supportName": "Mathsikasi Support",
+      "image": "/support-academic.jpg"
     }
   }
 }

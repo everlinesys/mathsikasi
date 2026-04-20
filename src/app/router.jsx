@@ -26,6 +26,11 @@ import CourseCurriculum from "../admin/pages/CourseCurriculum";
 import PageNotFound from "../public/pages/PageNotFound";
 import Tests from "../admin/pages/Tests";
 import StudentTest from "../student/pages/StudentTest";
+import AdminTeachers from "../admin/pages/Teachers";
+import TeacherLayout from "../teacher/layout/TeacherLayout";
+import TeacherDashboard from "../teacher/pages/TeacherDashboard";
+import TeacherCourses from "../teacher/pages/TeacherCourses";
+import TeacherStudents from "../teacher/pages/TeacherStudents";
 
 export const router = createBrowserRouter([
     {
@@ -79,7 +84,26 @@ export const router = createBrowserRouter([
                     { path: "courses/:id", element: <EditCourse /> },
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
                     { path: "students", element: <AdminStudents /> },
+                    { path: "teachers", element: <AdminTeachers /> },
                     { path: "settings", element: <AdminSettings /> },
+                    { path: "tests", element: <Tests /> },
+                ],
+            },
+        ],
+    },
+    {
+        path: "/teacher",
+        element: <ProtectedRoute role="TEACHER" />,
+        children: [
+            {
+
+                element: <TeacherLayout />,
+                children: [
+                    { index: true, element: <TeacherDashboard /> },
+                    { path: "courses", element: <TeacherCourses /> },
+                    // { path: "courses/:id", element: <EditCourse /> },
+                    { path: "course/:id/manage", element: <CourseCurriculum /> },
+                    { path: "students", element: <TeacherStudents /> },
                     { path: "tests", element: <Tests /> },
                 ],
             },
