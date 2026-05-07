@@ -21,7 +21,7 @@ export default function AdminSidebar({ open, onClose }) {
   const menu = [
     { name: "Dashboard", path: "/admin", icon: <MdDashboard size={20} /> },
     { name: "Courses", path: "/admin/courses", icon: <MdMenuBook size={20} /> },
-    { name: "Certifications", path: "/admin/tests", icon: <ClipboardCheck size={20} /> },
+    // { name: "Certifications", path: "/admin/tests", icon: <ClipboardCheck size={20} /> },
     { name: "Students", path: "/admin/students", icon: <MdPeople size={20} /> },
     { name: "Teachers", path: "/admin/teachers", icon: <MdSchool size={20} /> },
     { name: "Settings", path: "/admin/settings", icon: <MdSettings size={20} /> },
@@ -61,7 +61,7 @@ export default function AdminSidebar({ open, onClose }) {
           md:translate-x-0
         `}
         style={{
-          background: brand.colors.primary,
+          background: "white",
           color: brand.colors.accent,
         }}
       >

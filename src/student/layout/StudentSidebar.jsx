@@ -75,8 +75,8 @@ export default function StudentSidebar({ closeSidebar }) {
                         />
                     </div>
 
-                    <p className="text-xs text-gray-600 mt-2">
-                        65% Completed
+                    <p className="text-xs text-blue-600 mt-2">
+                         “An investment in knowledge pays the best interest.” - Benjamin Franklin
                     </p>
                 </div>
 

@@ -44,14 +44,14 @@ export default function Hero() {
           {/* Image top mobile only */}
           <div className="relative md:hidden md:block group ">
 
-            {brand.hero?.image ? (
+            {brand.hero.image ? (
               <img
                 src={brand.hero.image}
-                alt="Learning"
-                className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/4] w-full `}
+                alt={brand.siteName}
+                className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/3] w-full `}
               />
             ) : (
-              <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/4] w-full flex items-center justify-center`}>
+              <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
                 <div className="text-white/10 font-black text-8xl uppercase -rotate-12 select-none tracking-tighter">
                   Learn
                 </div>
@@ -80,7 +80,7 @@ export default function Hero() {
           {/* Title */}
           <h1
             className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight"
-            // style={{ color: brand.colors.primary }}
+          // style={{ color: brand.colors.primary }}
           >
             {brand.hero?.title || "Welcome to eLearn"}
           </h1>
@@ -97,7 +97,7 @@ export default function Hero() {
             <a
               href="#courses"
               className={`group inline-flex items-center justify-center px-8 py-4 font-black text-sm tracking-wide transition-all duration-300 active:scale-95 ${brand.theme.button.primary} ${brand.theme.shape?.radius || ""}`}
-              style={{ background: brand.colors.accent }}
+              style={{ background: brand.colors.primary,  color: "white" }}
             >
               <span className="flex items-center gap-2" >
                 Browse Courses
@@ -109,7 +109,7 @@ export default function Hero() {
 
             {/* Avatars */}
             <div className="flex -space-x-3 overflow-hidden">
-              {avatarLetters.map((letter, i) => (
+              {/* {avatarLetters.map((letter, i) => (
                 <div
                   key={i}
                   className="inline-flex h-8 w-8 rounded-full border border-black/20 items-center justify-center text-[11px] font-black"
@@ -120,10 +120,26 @@ export default function Hero() {
                 >
                   {letter}
                 </div>
-              ))}
+              ))} */}
+
+              {/* {[1, 2, 3, 4].map((num, i) => (
+                <div
+                  key={i}
+                  className="inline-flex h-8 w-8 rounded-full border border-black/20 items-center justify-center overflow-hidden"
+                  style={{
+                    backgroundColor: brand.colors.primary,
+                  }}
+                >
+                  <img
+                    src={`/icns/${num}.ico`}
+                    alt={`icon-${num}`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))} */}
 
               <div className="pl-5 pt-3 text-xs font-bold opacity-70 uppercase tracking-tighter">
-                +{brand.students} Students
+                {brand.students} Students
               </div>
             </div>
 
@@ -139,10 +155,10 @@ export default function Hero() {
             <img
               src={brand.hero.image}
               alt="Learning"
-              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/4] w-full `}
+              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/3] w-full `}
             />
           ) : (
-            <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/4] w-full flex items-center justify-center`}>
+            <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
               <div className="text-white/10 font-black text-8xl uppercase -rotate-12 select-none tracking-tighter">
                 Learn
               </div>
@@ -209,7 +225,7 @@ export default function Hero() {
           <button
             onClick={() => setOpen(!open)}
             className="w-18 h-18 rounded-full flex items-center justify-center text-white shadow-xl"
-            style={{ background: "rgb(5 150 105)", borderRadius: "40%" }}
+            style={{ background: "rgb(5 150 105)", color: "white", borderRadius: "40%" }}
           >
             <MdWhatsapp size={28} />
           </button>

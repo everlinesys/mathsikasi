@@ -24,13 +24,17 @@ import AdminStudents from "../admin/pages/Students";
 import EditCourse from "../admin/pages/EditCourse";
 import CourseCurriculum from "../admin/pages/CourseCurriculum";
 import PageNotFound from "../public/pages/PageNotFound";
-import Tests from "../admin/pages/Tests";
-import StudentTest from "../student/pages/StudentTest";
+import Terms from "../public/pages/Terms";
+import Privacy from "../public/pages/Privacy";
+import AboutUs from "../public/components/AboutUs";
+
+
 import AdminTeachers from "../admin/pages/Teachers";
 import TeacherLayout from "../teacher/layout/TeacherLayout";
 import TeacherDashboard from "../teacher/pages/TeacherDashboard";
 import TeacherCourses from "../teacher/pages/TeacherCourses";
 import TeacherStudents from "../teacher/pages/TeacherStudents";
+
 
 export const router = createBrowserRouter([
     {
@@ -41,9 +45,13 @@ export const router = createBrowserRouter([
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
             { path: "courses", element: <Courses /> },
+            { path: "pricing", element: <Courses /> },
             { path: "contact", element: <Contact /> },
+            { path: "aboutus", element: <AboutUs /> },
             { path: "courses/:courseId", element: <CourseDetails /> },
             { path: "course/:courseId", element: <CourseDetails /> },
+            { path: "terms", element: <Terms /> },
+            { path: "privacy", element: <Privacy /> },
 
 
         ],
@@ -64,7 +72,6 @@ export const router = createBrowserRouter([
                     { path: "security", element: <StudentSecurity /> },
                     { path: "history", element: <StudentHistory /> },
                     { path: "watch/:courseId", element: <WatchCourse /> },
-                    { path: "test/:courseId", element: <StudentTest /> },
 
                 ],
             },
@@ -83,10 +90,9 @@ export const router = createBrowserRouter([
                     { path: "courses", element: <AdminCourses /> },
                     { path: "courses/:id", element: <EditCourse /> },
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
-                    { path: "students", element: <AdminStudents /> },
+                    { path: "students", element: <AdminStudents /> }, 
                     { path: "teachers", element: <AdminTeachers /> },
                     { path: "settings", element: <AdminSettings /> },
-                    { path: "tests", element: <Tests /> },
                 ],
             },
         ],
@@ -104,11 +110,12 @@ export const router = createBrowserRouter([
                     // { path: "courses/:id", element: <EditCourse /> },
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
                     { path: "students", element: <TeacherStudents /> },
-                    { path: "tests", element: <Tests /> },
+                    // { path: "tests", element: <Tests /> },
                 ],
             },
         ],
     },
+
 
     {
         path: "*",

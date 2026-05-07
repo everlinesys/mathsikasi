@@ -11,25 +11,24 @@ export default function PreviewVideo() {
     brand.hero?.bunnyVideoId;
 
   const poster =
-    preview.poster ||
-    brand.hero?.poster;
+    brand.hero?.image;
 
   return (
-    <section className="relative overflow-hidden bg-white text-black">
+    <section className="relative overflow-hidden bg-white text-black md:px-16">
       <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
 
         {/* 🎥 VIDEO — CLEAN */}
         <div className="w-full">
-          {/* <VideoPlayer
+           {/* <VideoPlayer
             videoId={videoId}
             poster={poster}
-          /> */}
-          <img src="/hero.png" alt="" />
+          />  */}
+          <img src={preview.poster} className="w-[100vw] md:w-[50vw]" alt="" />
         </div>
 
         {/* 📝 TEXT — KEPT */}
         <div className="p-6 md:p-10 lg:p-14 space-y-6 md:space-y-8">
-          <h2 className={`text-xl md:text-5xl font-bold `}>
+          <h2 className={`text-2xl md:text-3xl font-bold `}>
             {preview.title}{" "}
             <span style={{ color: brand.colors.primary }}>
               {preview.highlight}

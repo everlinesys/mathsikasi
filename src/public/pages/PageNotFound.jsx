@@ -1,48 +1,60 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Home, ArrowLeft } from "lucide-react";
+import { BookOpen, ArrowLeft } from "lucide-react";
+import { useBranding } from "../../shared/hooks/useBranding";
 
-const PageNotFound = () => {
+export default function PageNotFound() {
+  const brand = useBranding();
+
   return (
-    <div className="min-h-screen min-w-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className={`${brand.theme.layout.page} min-h-screen w-[100vw] flex items-center justify-center px-4`}>
       
       <div className="text-center max-w-md">
-        
+
         {/* Icon */}
         <div className="flex justify-center mb-6">
-          <div className="bg-blue-100 p-5 rounded-full">
-            <BookOpen size={40} className="text-blue-600" />
+          <div
+            className="p-5 rounded-full"
+            style={{ backgroundColor: `${brand.colors.primary}20` }}
+          >
+            <BookOpen size={40} style={{ color: brand.colors.primary }} />
           </div>
         </div>
 
-        {/* 404 Text */}
-        <h1 className="text-5xl font-bold text-gray-800 mb-2">404</h1>
-        <h2 className="text-xl font-semibold text-gray-700 mb-2">
+        {/* 404 */}
+        <h1 className={`${brand.theme.text.title} text-5xl mb-2`}>
+          404
+        </h1>
+
+        {/* Title */}
+        <h2 className={`${brand.theme.text.subtitle} text-xl mb-2`}>
           Page Not Found
         </h2>
 
         {/* Message */}
-        <p className="text-gray-500 mb-6">
-          Looks like this page doesn’t exist or has been moved.
-          Let’s get you back to learning 📚
+        <p className={`${brand.theme.text.body} mb-6`}>
+          This page doesn’t exist or has been moved.  
+          Let’s get you back to {brand.siteName}.
         </p>
 
         {/* Buttons */}
         <div className="flex justify-center gap-3 flex-wrap">
-          
+
           <Link
             to="/"
-            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+            className={`${brand.theme.button.primary} px-5 py-2 ${brand.theme.shape.buttonRadius}`}
+            style={{ background: brand.colors.accent }}
           >
-            <Home size={18} />
-            Dashboard
+            Go Home
           </Link>
 
           <button
             onClick={() => window.history.back()}
-            className="flex items-center gap-2 border border-gray-300 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+            className={`${brand.theme.button.secondary} px-5 py-2 ${brand.theme.shape.buttonRadius}`}
           >
-            <ArrowLeft size={18} />
-            Go Back
+            <span className="flex items-center gap-2">
+              <ArrowLeft size={16} />
+              Go Back
+            </span>
           </button>
 
         </div>
@@ -50,6 +62,4 @@ const PageNotFound = () => {
       </div>
     </div>
   );
-};
-
-export default PageNotFound;
+}

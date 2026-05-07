@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "../../shared/api";
 import { BookOpen, Video, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function TeacherDashboard() {
+  const navigate = useNavigate();
+
   const [courses, setCourses] = useState([]);
   const [liveClasses, setLiveClasses] = useState([]);
+  const [students, setStudents] = useState([]);
   const [now, setNow] = useState(new Date());
 
   const API_BASE = import.meta.env.VITE_API_URL.replace("/api", "");
@@ -15,12 +19,15 @@ export default function TeacherDashboard() {
 
   async function load() {
     try {
-      const [c, live] = await Promise.all([
-        api.get("/courses"),
-        api.get("/live-classes"),
+      const [c, live, studentsRes] = await Promise.all([
+        api.get("/teacher/dashboard/courses"),
+        api.get("/teacher/dashboard/lives"),
+        api.get("/teacher/dashboard/students"),
       ]);
+
       setCourses(c.data || []);
       setLiveClasses(live.data || []);
+      setStudents(studentsRes.data || []);
     } catch (err) {
       console.error(err);
     }
@@ -32,17 +39,6 @@ export default function TeacherDashboard() {
     const i = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(i);
   }, []);
-
-  function formatCountdown(startTime) {
-    const diff = new Date(startTime) - now;
-    if (diff <= 0) return "Starting...";
-
-    const h = Math.floor(diff / (1000 * 60 * 60));
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    return `${h}h ${m}m ${s}s`;
-  }
 
   /* ===== SPLIT LIVE ===== */
 
@@ -74,7 +70,7 @@ export default function TeacherDashboard() {
           Teacher Dashboard
         </h1>
         <p className="text-slate-500 mt-1">
-          Manage your classes and content
+          Manage your classes, students & live sessions
         </p>
       </div>
 
@@ -82,7 +78,7 @@ export default function TeacherDashboard() {
       <div className="grid md:grid-cols-3 gap-6">
         <StatCard title="Courses" value={courses.length} icon={<BookOpen size={16} />} />
         <StatCard title="Live Classes" value={liveClasses.length} icon={<Video size={16} />} />
-        <StatCard title="Students" value="—" icon={<Users size={16} />} />
+        <StatCard title="Students" value={students.length} icon={<Users size={16} />} />
       </div>
 
       {/* COURSES */}
@@ -96,7 +92,7 @@ export default function TeacherDashboard() {
             <div
               key={c.id}
               className="relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg"
-              onClick={() => window.location.href = `/teacher/courses`}
+              onClick={() => navigate("/teacher/courses")}
             >
               {c.thumbnail ? (
                 <img
@@ -129,7 +125,6 @@ export default function TeacherDashboard() {
 
         <div className="space-y-10">
 
-          {/* 🔴 LIVE NOW */}
           {liveNow.length > 0 && (
             <Section title="🔴 Live Now" color="text-red-500">
               {liveNow.map((lc) => (
@@ -138,7 +133,6 @@ export default function TeacherDashboard() {
             </Section>
           )}
 
-          {/* ⏳ UPCOMING */}
           {upcoming.length > 0 && (
             <Section title="⏳ Upcoming" color="text-indigo-600">
               {upcoming.map((lc) => (
@@ -147,7 +141,6 @@ export default function TeacherDashboard() {
             </Section>
           )}
 
-          {/* ⚪ ENDED */}
           {ended.length > 0 && (
             <Section title="Ended" color="text-slate-400">
               {ended.map((lc) => (
@@ -190,7 +183,7 @@ function LiveCard({ lc, type, now }) {
       }`}
     >
       <p className="text-xs text-slate-400">
-        {lc.course?.title || "Course"}
+        {lc.group?.name || lc.course?.title || "General"}
       </p>
 
       <h4 className="font-semibold text-slate-900">

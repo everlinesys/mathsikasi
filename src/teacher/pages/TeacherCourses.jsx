@@ -30,7 +30,7 @@ export default function TeacherCourses() {
 
   async function load() {
     try {
-      const { data } = await api.get("/courses");
+      const { data } = await api.get("/teacher/dashboard/courses");
       setCourses(data);
     } catch (err) {
       console.error(err);
@@ -291,11 +291,10 @@ export default function TeacherCourses() {
                       endTime: end.toISOString(),
                     });
                   }}
-                  className={`flex-1 py-2 rounded-xl border ${
-                    liveForm.duration === min
+                  className={`flex-1 py-2 rounded-xl border ${liveForm.duration === min
                       ? "bg-indigo-600 text-white"
                       : ""
-                  }`}
+                    }`}
                 >
                   {min === 30 ? "30 min" : "1 hour"}
                 </button>

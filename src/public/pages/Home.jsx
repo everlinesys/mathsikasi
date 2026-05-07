@@ -5,6 +5,9 @@ import CTASection from "../components/CTASection";
 import Enroll from "../components/Enroll";
 import Courses from "./Courses";
 import FeaturedCoursesStrip from "../components/CourseStrip";
+import Team from "../components/Team";
+import MissionVision from "../components/MissionVision";
+import AboutUs from "../components/AboutUs";
 
 
 export default function Home() {
@@ -14,6 +17,8 @@ export default function Home() {
       <PreviewVideo />
 
       <FeaturedCoursesStrip />
+      {/* <MissionVision /> */}
+      <AboutUs />
       <Testimonials />
       <Enroll />
       <CTASection />

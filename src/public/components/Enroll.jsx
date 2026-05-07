@@ -25,7 +25,7 @@ export default function Enroll() {
 👤 Name: ${form.name}
 📞 Phone: ${form.phone}
 🎓 Course: ${form.course}
-
+ 
 📝 Message:
 ${form.message || "N/A"}
 `;

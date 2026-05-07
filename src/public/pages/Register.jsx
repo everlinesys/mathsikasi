@@ -10,6 +10,7 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    phone: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,9 @@ export default function Register() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+    if (!/^[0-9]{10}$/.test(form.phone)) {
+      return setError("Enter valid 10-digit phone number");
+    }
     try {
       const { data } = await api.post("/auth/register", form);
 
@@ -86,6 +89,20 @@ export default function Register() {
               onChange={handleChange}
               className="w-full border rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-black"
             />
+            <div className="flex">
+              <span className="px-3 flex items-center bg-gray-100 border rounded-l-lg text-sm">
+                +91
+              </span>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="9876543210"
+                required
+                value={form.phone}
+                onChange={handleChange}
+                className="w-full border border-l-0 rounded-r-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
 
             <input
               type="password"
@@ -105,7 +122,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-          style={{background:brand.colors.primary}}    className="w-full py-3 bg-black text-white rounded-lg text-sm font-medium disabled:opacity-50"
+              style={{ background: brand.colors.primary }} className="w-full py-3 bg-black text-white rounded-lg text-sm font-medium disabled:opacity-50"
             >
               {loading ? "Creating account..." : "Register"}
             </button>
