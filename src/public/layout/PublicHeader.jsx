@@ -10,7 +10,7 @@ export default function PublicHeader() {
   const theme = themes?.[brand.theme] || themes.darkModern;
 
   return (
-    <header className={` shadow-sm md:px-16`} style={{ backgroundColor: "#eeecec" || brand.colors.accent , color:  "#13205f" ||brand.colors.primary  }}>
+    <header className={` shadow-sm md:px-16`} style={{ backgroundColor: "#eeecec" || brand.colors.accent, color: "#13205f" || brand.colors.primary }}>
       <div className="max-w-7xl mx-auto px-3 h-16 flex items-center justify-between">
 
         {/* Logo + Small Title */}
@@ -43,8 +43,12 @@ export default function PublicHeader() {
 
           <NavLink to="/contact" className="hover:opacity-80 transition">
             Contact
-          </NavLink> <NavLink to="/aboutus" className="hover:opacity-80 transition">
+          </NavLink> 
+          <NavLink to="/aboutus" className="hover:opacity-80 transition">
             About Us
+          </NavLink>
+          <NavLink to="/careers" className="hover:opacity-80 transition">
+            Careers
           </NavLink>
         </nav>
 
