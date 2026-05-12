@@ -3,20 +3,22 @@
     "siteName": "Mathsikasi",
     "tagline": "Strong Foundations. Confident Students.",
 
-    "primaryColor": "#0f172a",
+    "primaryColor": "#1e3a8a", 
     "theme": "formalLight",
 
     "logo": "/logo.png",
     "students": "500+",
 
     "colors": {
-      "primary": "#0f172a",
-      "accent": "#3b82f6"
+      "primary": "#1e3a8a", 
+      "accent": "#f59e0b",
+      "secondary": "#334155",
+      "background": "#f8fafc"
     },
 
     "hero": {
-      "title": "Master Maths with Confidence",
-      "subtitle": "From Class 8 to Degree level, we simplify Maths, Hindi, and core subjects with clear concepts, step-by-step methods, and exam-focused preparation.",
+      "title": "Master PCM with Confidence",
+      "subtitle": "From Class 8 to Degree level, we simplify Maths, Physics, and Chemistry with clear concepts, step-by-step methods, and exam-focused preparation.",
       "image": "/hero.png",
 
       "bunnyVideoId": "replace-with-your-video-id",
@@ -24,39 +26,40 @@
     },
 
     "preview": {
-      "badge": "Trusted Tuition Centre",
+      "badge": "CBSE | STATE",
       "title": "Understanding beats memorizing.",
       "highlight": "Concept-Based Learning for Real Results",
       "description": "We focus on deep understanding rather than rote learning. Each concept is broken down into simple steps so students can solve problems independently and perform confidently in exams.",
 
       "bunnyVideoId": "replace-with-your-video-id",
       "libraryId": "your-library-id",
-      "poster": "/maths-preview.jpg",
+      "poster": "/preview.png",
 
       "videoUrl": "https://youtube.com",
 
       "perks": [
-        { "value": "CONCEPT", "label": "Strong Concept Clarity" },
-        { "value": "EXAM READY", "label": "Exam-Oriented Practice" }
+        { "value": "NOTES", "label": "Chapterwise Notes" },
+        { "value": "PYQ", "label": "Question Paper Discussion" },
+        { "value": "1-ON-1", "label": "Personal Attention" }
       ]
     },
 
     "courses": [
       {
-        "title": "Kerala Syllabus (Class 8–10)",
-        "description": "Complete Maths guidance with step-by-step problem solving and exam preparation."
+        "title": "High School (9th & 10th)",
+        "description": "CBSE & State syllabus coverage for Mathematics, Physics, and Chemistry."
       },
       {
-        "title": "Higher Secondary (Plus One & Plus Two)",
-        "description": "Advanced Maths with focus on problem-solving techniques and board exam strategies."
+        "title": "Higher Secondary (11th & 12th)",
+        "description": "In-depth guidance for board exams with a focus on core science and maths subjects."
       },
       {
         "title": "Degree Level Maths",
-        "description": "Clear understanding of higher-level topics with simplified explanations."
+        "description": "Simplified explanations for complex higher-education mathematical concepts."
       },
       {
-        "title": "Hindi & Other Subjects",
-        "description": "Support for language and additional subjects with structured learning."
+        "title": "Doubt Clearance & Support",
+        "description": "One-to-one classes and personal attention to ensure no student is left behind."
       }
     ],
 

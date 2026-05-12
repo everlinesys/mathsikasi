@@ -34,6 +34,8 @@ import TeacherLayout from "../teacher/layout/TeacherLayout";
 import TeacherDashboard from "../teacher/pages/TeacherDashboard";
 import TeacherCourses from "../teacher/pages/TeacherCourses";
 import TeacherStudents from "../teacher/pages/TeacherStudents";
+import Careers from "../public/components/Careers";
+import TeacherRegistration from "../public/pages/TeacherRegistration";
 
 
 export const router = createBrowserRouter([
@@ -44,7 +46,9 @@ export const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
+            { path: "tutor-registration", element: <TeacherRegistration /> },
             { path: "courses", element: <Courses /> },
+            // { path: "careers", element: <Careers /> },
             { path: "pricing", element: <Courses /> },
             { path: "contact", element: <Contact /> },
             { path: "aboutus", element: <AboutUs /> },
@@ -90,7 +94,7 @@ export const router = createBrowserRouter([
                     { path: "courses", element: <AdminCourses /> },
                     { path: "courses/:id", element: <EditCourse /> },
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
-                    { path: "students", element: <AdminStudents /> }, 
+                    { path: "students", element: <AdminStudents /> },
                     { path: "teachers", element: <AdminTeachers /> },
                     { path: "settings", element: <AdminSettings /> },
                 ],
