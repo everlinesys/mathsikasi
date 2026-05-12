@@ -36,6 +36,7 @@ import TeacherCourses from "../teacher/pages/TeacherCourses";
 import TeacherStudents from "../teacher/pages/TeacherStudents";
 import Careers from "../public/components/Careers";
 import TeacherRegistration from "../public/pages/TeacherRegistration";
+import PasswordReset from "../public/pages/ResetPassword";
 
 
 export const router = createBrowserRouter([
@@ -56,6 +57,7 @@ export const router = createBrowserRouter([
             { path: "course/:courseId", element: <CourseDetails /> },
             { path: "terms", element: <Terms /> },
             { path: "privacy", element: <Privacy /> },
+            {path: "forgot-password", element: < PasswordReset/>},
 
 
         ],

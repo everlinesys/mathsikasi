@@ -78,8 +78,8 @@ export default function UnitEditor({ unit }) {
   async function createChapter(e) {
     e.preventDefault();
 
-    if (!title || !file)
-      return alert("Title and file required");
+    if (!title )
+      return alert("Title is required");
 
     try {
       setUploading(true);
