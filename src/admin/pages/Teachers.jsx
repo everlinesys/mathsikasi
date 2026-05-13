@@ -22,16 +22,28 @@ export default function Teachers() {
     msg: "",
     onConfirm: null,
   });
+  // ================= STATES =================
 
+  const [tab, setTab] = useState("teachers");
+  const [applications, setApplications] = useState([]);
+
+  // ================= LOAD =================
   useEffect(() => {
     load();
   }, []);
-
   async function load() {
     setLoading(true);
+
     try {
       const res = await api.get("/admin/teachers");
       setTeachers(res.data || []);
+
+      // LOAD APPLICATIONS
+      const app = await api.get(
+        "/admin/teachers/applications"
+      );
+
+      setApplications(app.data || []);
 
       const c = await api.get("/courses");
       setCourses(c.data || []);
@@ -41,6 +53,70 @@ export default function Teachers() {
       setLoading(false);
     }
   }
+
+  // ================= HIRE =================
+
+  async function hireTeacher(id) {
+    showConfirm(
+      "Hire Teacher",
+      "Convert this application into teacher?",
+      async () => {
+        try {
+          await api.put(
+            `/admin/teachers/hire/${id}`
+          );
+
+          load();
+
+          setUiModal({ show: false });
+
+          showAlert(
+            "Success",
+            "Teacher hired successfully"
+          );
+        } catch (err) {
+          showAlert(
+            "Error",
+            err.response?.data?.message ||
+            "Hiring failed"
+          );
+        }
+      }
+    );
+  }
+
+  // ================= DELETE APPLICATION =================
+
+  async function deleteApplication(id) {
+    showConfirm(
+      "Delete Application",
+      "Delete this teacher application?",
+      async () => {
+        try {
+          await api.delete(
+            `/admin/teachers/${id}`
+          );
+
+          load();
+
+          setUiModal({ show: false });
+
+          showAlert(
+            "Success",
+            "Application deleted"
+          );
+        } catch {
+          showAlert(
+            "Error",
+            "Delete failed"
+          );
+        }
+      }
+    );
+  }
+
+
+
 
   const toggle = (id) =>
     setExpanded((p) => ({ ...p, [id]: !p[id] }));
@@ -142,95 +218,268 @@ export default function Teachers() {
         </div>
 
         {/* SEARCH */}
+        {/* TABS */}
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => setTab("teachers")}
+            className={`px-4 py-2 rounded-lg text-sm font-bold ${tab === "teachers"
+              ? "bg-indigo-600"
+              : "bg-white/5"
+              }`}
+          >
+            Teachers
+          </button>
+
+          <button
+            onClick={() => setTab("applications")}
+            className={`px-4 py-2 rounded-lg text-sm font-bold ${tab === "applications"
+              ? "bg-indigo-600"
+              : "bg-white/5"
+              }`}
+          >
+            Applications
+            {applications.length > 0 && (
+              <span className="ml-2 text-xs bg-white/20 px-2 py-0.5 rounded-full">
+                {applications.length}
+              </span>
+            )}
+          </button>
+        </div>
+
+        {/* SEARCH */}
+
         <input
           className="w-full bg-white/5 border border-white/10 px-4 py-2 rounded-xl"
-          placeholder="Search teachers..."
+          placeholder={
+            tab === "teachers"
+              ? "Search teachers..."
+              : "Search applications..."
+          }
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
 
-        {/* LIST */}
-        <div className="space-y-4">
-          {loading && <p>Loading...</p>}
+        {/* TEACHERS */}
 
-          {!loading &&
-            filtered.map((t) => (
-              <div key={t.id} className="bg-white/5 border border-white/10 rounded-xl">
+        {tab === "teachers" && (
+          <div className="space-y-4">
+            {loading && <p>Loading...</p>}
 
-                <button
-                  onClick={() => toggle(t.id)}
-                  className="w-full flex justify-between p-4"
+            {!loading &&
+              filtered.map((t) => (
+                <div
+                  key={t.id}
+                  className="bg-white/5 border border-white/10 rounded-xl text-left"
                 >
-                  <div>
-                    <div className="font-bold">
-                      {t.name || "Unnamed"}
-                      {t.blocked && (
-                        <span className="ml-2 text-red-400 text-xs">
-                          Blocked
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-xs text-white/50">{t.email}</div>
-                  </div>
-                  <span>{expanded[t.id] ? "▲" : "▼"}</span>
-                </button>
+                  <button
+                    onClick={() => toggle(t.id)}
+                    className="w-full flex justify-between p-4"
+                  >
+                    <div className="text-left">
+                      <div className="font-bold">
+                        {t.name || "Unnamed"}
 
-                {expanded[t.id] && (
-                  <div className="p-4 border-t border-white/10 space-y-3">
+                        {t.blocked && (
+                          <span className="ml-2 text-red-400 text-xs">
+                            Blocked
+                          </span>
+                        )}
+                      </div>
 
-                    {/* ACTIONS */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => resetPassword(t.id)}
-                        className="px-3 py-2 bg-white/10 rounded"
-                      >
-                        Reset Password
-                      </button>
-
-                      <button
-                        onClick={() => toggleBlock(t)}
-                        className="px-3 py-2 bg-red-500/20 text-red-400 rounded"
-                      >
-                        {t.blocked ? "Unblock" : "Block"}
-                      </button>
-
-                      <button
-                        onClick={() => setAssignModal(t.id)}
-                        className="px-3 py-2 bg-indigo-600 rounded"
-                      >
-                        Assign Course
-                      </button>
+                      <div className="text-xs text-white/50">
+                        {t.email}
+                      </div>
                     </div>
 
-                    {/* COURSES */}
-                    <div className="text-sm text-white/60">
-                      <div className="font-bold mb-2">Courses:</div>
+                    <span>
+                      {expanded[t.id] ? "▲" : "▼"}
+                    </span>
+                  </button>
 
-                      {t.teachingCourses?.length === 0 && (
-                        <div>No courses assigned</div>
-                      )}
+                  {expanded[t.id] && (
+                    <div className="p-4 border-t border-white/10 space-y-3">
 
-                      {t.teachingCourses?.map((c) => (
-                        <div key={c.id} className="flex justify-between items-center mb-1">
-                          <span>{c.course.title}</span>
+                      {/* ACTIONS */}
 
-                          <button
-                            onClick={() =>
-                              removeCourse(t.id, c.course.id)
-                            }
-                            className="text-red-400 text-xs"
-                          >
-                            Remove
-                          </button>
+                      <div className="flex gap-2 flex-wrap">
+                        <button
+                          onClick={() =>
+                            resetPassword(t.id)
+                          }
+                          className="px-3 py-2 bg-white/10 rounded"
+                        >
+                          Reset Password
+                        </button>
+
+                        <button
+                          onClick={() =>
+                            toggleBlock(t)
+                          }
+                          className="px-3 py-2 bg-red-500/20 text-red-400 rounded"
+                        >
+                          {t.blocked
+                            ? "Unblock"
+                            : "Block"}
+                        </button>
+
+                        <button
+                          onClick={() =>
+                            setAssignModal(t.id)
+                          }
+                          className="px-3 py-2 bg-indigo-600 rounded"
+                        >
+                          Assign Course
+                        </button>
+                      </div>
+
+                      {/* COURSES */}
+
+                      <div className="text-sm text-white/60">
+                        <div className="font-bold mb-2">
+                          Courses:
                         </div>
-                      ))}
+
+                        {t.teachingCourses
+                          ?.length === 0 && (
+                            <div>
+                              No courses assigned
+                            </div>
+                          )}
+
+                        {t.teachingCourses?.map(
+                          (c) => (
+                            <div
+                              key={c.id}
+                              className="flex justify-between items-center mb-1"
+                            >
+                              <span>
+                                {c.course.title}
+                              </span>
+
+                              <button
+                                onClick={() =>
+                                  removeCourse(
+                                    t.id,
+                                    c.course.id
+                                  )
+                                }
+                                className="text-red-400 text-xs"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+        )}
+
+        {/* APPLICATIONS */}
+
+        {tab === "applications" && (
+          <div className="space-y-4">
+
+            {applications
+              .filter(
+                (a) =>
+                  a.name
+                    ?.toLowerCase()
+                    .includes(
+                      query.toLowerCase()
+                    ) ||
+                  a.email
+                    ?.toLowerCase()
+                    .includes(
+                      query.toLowerCase()
+                    )
+              )
+              .map((a) => (
+                <div
+                  key={a.id}
+                  className="bg-white/5 border border-white/10 rounded-2xl p-5"
+                >
+                  <div className="flex justify-between gap-6 flex-wrap">
+
+                    <div className="space-y-2">
+                      <div>
+                        <h3 className="text-xl font-bold">
+                          {a.name}
+                        </h3>
+
+                        <p className="text-sm text-white/50">
+                          {a.email}
+                        </p>
+                      </div>
+
+                      <div className="text-sm text-white/70 space-y-1">
+                        <div>
+                          Phone: {a.phone || "-"}
+                        </div>
+
+                        <div>
+                          Qualification:
+                          {" "}
+                          {a.qualification || "-"}
+                        </div>
+
+                        <div>
+                          Location:
+                          {" "}
+                          {a.city || "-"},
+                          {" "}
+                          {a.district || "-"},
+                          {" "}
+                          {a.country || "-"}
+                        </div>
+                      </div>
+
+                      {a.cv && (
+                        <a
+                          href={`https://${a.cv}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-block text-indigo-400 text-sm underline"
+                        >
+                          View CV
+                        </a>
+                      )}
                     </div>
 
+                    <div className="flex flex-col gap-2 min-w-[160px]">
+                      <button
+                        onClick={() =>
+                          hireTeacher(a.id)
+                        }
+                        className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm font-bold"
+                      >
+                        Hire Teacher
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          deleteApplication(a.id)
+                        }
+                        className="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg text-sm font-bold"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                )}
+                </div>
+              ))}
+
+            {applications.length === 0 && (
+              <div className="text-center py-16 text-white/40">
+                No teacher applications
               </div>
-            ))}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* ADD MODAL */}
         {showAdd && (

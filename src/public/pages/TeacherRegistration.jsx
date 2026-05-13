@@ -4,207 +4,605 @@ import {
   Mail,
   Phone,
   MapPin,
-  Briefcase,
   Upload,
   ChevronDown,
   Loader2,
-  CheckCircle2
+  CheckCircle2,
+  GraduationCap,
+  Globe,
 } from "lucide-react";
 
+import api from "../../shared/api";
+import { useBranding } from "../../shared/hooks/useBranding";
+
 export default function TeacherRegistration() {
-  // State for Form Data
+  const brand = useBranding();
+
   const [form, setForm] = useState({
-    fullName: "",
+    name: "",
     email: "",
+    password: "",
     phone: "",
-    subjects: "",
+
     qualification: "",
-    experience: "",
     country: "",
-    state: "",
+    district: "",
     city: "",
-    about: "",
+    address: "",
+    pincode: "",
+
     cv: null,
   });
 
-  // State for API Data
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  const [loadingCountries, setLoadingCountries] = useState(true);
-  const [loadingStates, setLoadingStates] = useState(false);
 
-  // 1. Fetch Countries on Mount
+  const [loadingCountries, setLoadingCountries] =
+    useState(true);
+
+  const [loadingStates, setLoadingStates] =
+    useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const [uploadingCv, setUploadingCv] =
+    useState(false);
+
+  const [error, setError] = useState("");
+
+  const [success, setSuccess] = useState(false);
+
+  // =========================================================
+  // FETCH COUNTRIES
+  // =========================================================
+
   useEffect(() => {
-    fetch("https://countriesnow.space/api/v0.1/countries/positions")
+    fetch(
+      "https://countriesnow.space/api/v0.1/countries/positions"
+    )
       .then((res) => res.json())
       .then((data) => {
-        if (data.data && Array.isArray(data.data)) {
+        if (Array.isArray(data.data)) {
           setCountries(data.data);
         }
       })
-      .catch((err) => console.error("Error fetching countries:", err))
+      .catch(console.error)
       .finally(() => setLoadingCountries(false));
   }, []);
 
-  // 2. Fetch States when Country changes
+  // =========================================================
+  // FETCH STATES
+  // =========================================================
+
   useEffect(() => {
-    if (form.country) {
-      setLoadingStates(true);
-      fetch("https://countriesnow.space/api/v0.1/countries/states", {
+    if (!form.country) return;
+
+    setLoadingStates(true);
+
+    fetch(
+      "https://countriesnow.space/api/v0.1/countries/states",
+      {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ country: form.country }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          country: form.country,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data?.states) {
+          setStates(data.data.states);
+        } else {
+          setStates([]);
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.data && data.data.states) {
-            setStates(data.data.states);
-          } else {
-            setStates([]);
-          }
-        })
-        .catch((err) => console.error("Error fetching states:", err))
-        .finally(() => setLoadingStates(false));
-    }
+      .catch(console.error)
+      .finally(() => setLoadingStates(false));
   }, [form.country]);
 
-  const handleChange = (e) => {
+  // =========================================================
+  // INPUT CHANGE
+  // =========================================================
+
+  function handleChange(e) {
     const { name, value, files } = e.target;
+
     setForm((prev) => ({
       ...prev,
       [name]: files ? files[0] : value,
-      // Reset state and city if country changes
-      ...(name === "country" && { state: "", city: "" }),
-    }));
-  };
 
-  const handleSubmit = (e) => {
+      ...(name === "country" && {
+        district: "",
+      }),
+    }));
+  }
+
+  // =========================================================
+  // PDF UPLOAD
+  // =========================================================
+
+  async function uploadCV() {
+    if (!form.cv) return "";
+
+    setUploadingCv(true);
+
+    const safeName = form.cv.name.replace(
+      /\s+/g,
+      "-"
+    );
+
+    const filePath = `teacher-cv/${Date.now()}-${safeName}`;
+
+    const uploadUrl = `https://storage.bunnycdn.com/${
+      import.meta.env.VITE_BUNNY_STORAGE_ZONE
+    }/${filePath}`;
+
+    const res = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        AccessKey:
+          import.meta.env.VITE_BUNNY_STORAGE_KEY,
+        "Content-Type": "application/pdf",
+      },
+      body: form.cv,
+    });
+
+    if (!res.ok) {
+      throw new Error("CV upload failed");
+    }
+
+    const fileUrl = `${
+      import.meta.env.VITE_BUNNY_PULL_ZONE
+    }/${filePath}`;
+
+    return fileUrl;
+  }
+
+  // =========================================================
+  // SUBMIT
+  // =========================================================
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Final Submission:", form);
-    alert("Application sent successfully!");
-  };
+
+    setError("");
+
+    // =====================================================
+    // VALIDATION
+    // =====================================================
+
+    if (
+      !/^[0-9]{10}$/.test(
+        form.phone.replace(/\D/g, "")
+      )
+    ) {
+      return setError(
+        "Enter valid 10-digit phone number"
+      );
+    }
+
+    if (form.password.length < 6) {
+      return setError(
+        "Password must be at least 6 characters"
+      );
+    }
+
+    if (!form.cv) {
+      return setError("Please upload your CV");
+    }
+
+    if (form.cv.type !== "application/pdf") {
+      return setError("Only PDF files allowed");
+    }
+
+    if (form.cv.size > 10 * 1024 * 1024) {
+      return setError(
+        "CV must be under 10MB"
+      );
+    }
+
+    try {
+      setLoading(true);
+
+      // ===================================================
+      // UPLOAD CV
+      // ===================================================
+
+      const cvUrl = await uploadCV();
+
+      // ===================================================
+      // CREATE USER
+      // ===================================================
+
+      await api.post("/auth/teacher-application", {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+
+        phone: form.phone.replace(/\D/g, ""),
+
+        qualification: form.qualification,
+
+        country: form.country,
+        district: form.district,
+        city: form.city,
+        address: form.address,
+        pincode: form.pincode,
+
+        cv: cvUrl,
+
+        role: "teacher-application",
+      });
+
+      setSuccess(true);
+
+      // RESET
+
+      setForm({
+        name: "",
+        email: "",
+        password: "",
+        phone: "",
+
+        qualification: "",
+        country: "",
+        district: "",
+        city: "",
+        address: "",
+        pincode: "",
+
+        cv: null,
+      });
+    } catch (err) {
+      console.error(err);
+
+      setError(
+        err.response?.data?.message ||
+          "Application submission failed"
+      );
+    } finally {
+      setLoading(false);
+      setUploadingCv(false);
+    }
+  }
+
+  // =========================================================
+  // SUCCESS SCREEN
+  // =========================================================
+
+  if (success) {
+    return (
+      <section className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
+        <div className="bg-white max-w-xl w-full rounded-3xl shadow-2xl p-10 text-center border border-slate-200">
+          <div
+            className="w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-6"
+            style={{
+              background: `${brand.colors.primary}15`,
+            }}
+          >
+            <CheckCircle2
+              size={42}
+              style={{
+                color: brand.colors.primary,
+              }}
+            />
+          </div>
+
+          <h2 className="text-3xl font-black text-slate-900">
+            Application Submitted
+          </h2>
+
+          <p className="text-slate-600 mt-4 leading-relaxed">
+            Your teacher application has been
+            received successfully.
+            <br />
+            Our team will review your profile and
+            contact you soon.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  // =========================================================
+  // UI
+  // =========================================================
 
   return (
-    <section className="min-h-screen bg-slate-100 py-12 px-4 font-sans">
-      <div className="max-w-4xl mx-auto">
-        
-        {/* Header */}
-        <div className="text-center mb-10">
+    <section className="min-h-screen bg-slate-100 py-12 px-4">
+      <div className="max-w-5xl mx-auto">
+
+        {/* HEADER */}
+
+        <div className="text-center mb-12">
+          <div
+            className="w-20 h-20 rounded-3xl mx-auto flex items-center justify-center mb-6 shadow-xl"
+            style={{
+              background: brand.colors.primary,
+            }}
+          >
+            <GraduationCap
+              className="text-white"
+              size={38}
+            />
+          </div>
+
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-            Become a Tutor
+            Become a Teacher
           </h1>
-          <p className="text-slate-600 mt-3 text-lg">
-            Join our global network of professional educators.
+
+          <p className="text-slate-600 mt-4 text-lg max-w-2xl mx-auto">
+            Join our educator network and inspire
+            students worldwide through high-quality
+            teaching.
           </p>
         </div>
 
-        {/* Main Card */}
+        {/* FORM */}
+
         <div className="bg-white rounded-[32px] shadow-2xl border border-slate-200 overflow-hidden">
-          <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-10">
-            
-            {/* Personal Details */}
+
+          <form
+            onSubmit={handleSubmit}
+            className="p-8 md:p-12 space-y-10"
+          >
+
+            {/* PERSONAL */}
+
             <div>
-              <SectionTitle icon={<User size={20} />} title="Personal Details" />
+              <SectionTitle
+                icon={<User size={20} />}
+                title="Personal Information"
+              />
+
               <div className="grid md:grid-cols-2 gap-6">
-                <Input label="Full Name" name="fullName" value={form.fullName} onChange={handleChange} placeholder="e.g. Jane Doe" />
-                <Input label="Email Address" type="email" name="email" value={form.email} onChange={handleChange} placeholder="jane@example.com" />
-                <Input label="Phone Number" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 234 567 890" />
-                <Input label="Highest Qualification" name="qualification" value={form.qualification} onChange={handleChange} placeholder="M.Sc. Education" />
+
+                <Input
+                  label="Full Name"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                  required
+                />
+
+                <Input
+                  label="Email Address"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="john@example.com"
+                  required
+                />
+
+                <Input
+                  label="Phone Number"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="9876543210"
+                  required
+                />
+
+                <Input
+                  label="Password"
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Minimum 6 characters"
+                  required
+                />
               </div>
             </div>
 
-            {/* Teaching Details */}
+            {/* QUALIFICATION */}
+
             <div>
-              <SectionTitle icon={<Briefcase size={20} />} title="Teaching Background" />
+              <SectionTitle
+                icon={<GraduationCap size={20} />}
+                title="Professional Information"
+              />
+
               <div className="grid md:grid-cols-2 gap-6">
-                <Input label="Subjects" name="subjects" value={form.subjects} onChange={handleChange} placeholder="Mathematics, Physics" />
-                <Input label="Years of Experience" name="experience" value={form.experience} onChange={handleChange} placeholder="5 Years" />
+                <Input
+                  label="Qualification"
+                  name="qualification"
+                  value={form.qualification}
+                  onChange={handleChange}
+                  placeholder="MSc Mathematics"
+                  required
+                />
+
+                <Input
+                  label="Pincode"
+                  name="pincode"
+                  value={form.pincode}
+                  onChange={handleChange}
+                  placeholder="682001"
+                />
               </div>
             </div>
 
-            {/* Location with API Logic */}
+            {/* LOCATION */}
+
             <div>
-              <SectionTitle icon={<MapPin size={20} />} title="Location" />
+              <SectionTitle
+                icon={<Globe size={20} />}
+                title="Location"
+              />
+
               <div className="grid md:grid-cols-3 gap-6">
-                
-                {/* Country Dropdown */}
+
+                {/* COUNTRY */}
+
                 <div className="relative">
                   <Label>Country</Label>
+
                   <select
                     name="country"
                     value={form.country}
                     onChange={handleChange}
-                    className="w-full appearance-none bg-white border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    required
+                    className="w-full appearance-none bg-white border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 outline-none transition-all"
                   >
-                    <option value="">{loadingCountries ? "Loading..." : "Select Country"}</option>
-                    {Array.isArray(countries) && countries.map((c, idx) => (
-                      <option key={idx} value={c.name}>{c.name}</option>
+                    <option value="">
+                      {loadingCountries
+                        ? "Loading..."
+                        : "Select Country"}
+                    </option>
+
+                    {countries.map((c, idx) => (
+                      <option
+                        key={idx}
+                        value={c.name}
+                      >
+                        {c.name}
+                      </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 bottom-3.5 text-slate-400 pointer-events-none" size={18} />
+
+                  <ChevronDown
+                    className="absolute right-3 bottom-3.5 text-slate-400"
+                    size={18}
+                  />
                 </div>
 
-                {/* State Dropdown */}
+                {/* DISTRICT */}
+
                 <div className="relative">
-                  <Label>State / Province</Label>
+                  <Label>District / State</Label>
+
                   <select
-                    name="state"
-                    value={form.state}
+                    name="district"
+                    value={form.district}
                     onChange={handleChange}
-                    disabled={!form.country || loadingStates}
-                    className="w-full appearance-none bg-white border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-slate-50 disabled:text-slate-400"
+                    disabled={
+                      !form.country ||
+                      loadingStates
+                    }
+                    required
+                    className="w-full appearance-none bg-white border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 outline-none transition-all disabled:bg-slate-100"
                   >
-                    <option value="">{loadingStates ? "Loading..." : "Select State"}</option>
-                    {Array.isArray(states) && states.map((s, idx) => (
-                      <option key={idx} value={s.name}>{s.name}</option>
+                    <option value="">
+                      {loadingStates
+                        ? "Loading..."
+                        : "Select District"}
+                    </option>
+
+                    {states.map((s, idx) => (
+                      <option
+                        key={idx}
+                        value={s.name}
+                      >
+                        {s.name}
+                      </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 bottom-3.5 text-slate-400 pointer-events-none" size={18} />
+
+                  <ChevronDown
+                    className="absolute right-3 bottom-3.5 text-slate-400"
+                    size={18}
+                  />
                 </div>
 
-                <Input label="City" name="city" value={form.city} onChange={handleChange} placeholder="e.g. New York" />
-              </div>
-            </div>
-
-            {/* About & CV */}
-            <div className="space-y-6">
-              <div>
-                <Label>About Yourself</Label>
-                <textarea
-                  name="about"
-                  rows={4}
-                  value={form.about}
+                <Input
+                  label="City"
+                  name="city"
+                  value={form.city}
                   onChange={handleChange}
-                  placeholder="Share your teaching philosophy..."
-                  className="w-full bg-white border border-slate-300 text-slate-900 rounded-2xl px-4 py-4 focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"
+                  placeholder="Kochi"
+                  required
                 />
               </div>
 
-              <div className="relative group cursor-pointer">
+              <div className="mt-6">
+                <Input
+                  label="Address"
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="Full address"
+                />
+              </div>
+            </div>
+
+            {/* CV */}
+
+            <div>
+              <SectionTitle
+                icon={<Upload size={20} />}
+                title="Upload CV"
+              />
+
+              <div className="relative group">
                 <input
                   type="file"
                   name="cv"
+                  accept="application/pdf"
                   onChange={handleChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
-                <div className="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center group-hover:border-blue-500 group-hover:bg-blue-50 transition-all">
-                  <Upload className="mx-auto text-slate-400 group-hover:text-blue-500 mb-2" size={32} />
-                  <p className="text-slate-700 font-bold">
-                    {form.cv ? form.cv.name : "Click to upload CV / Resume"}
+
+                <div className="border-2 border-dashed border-slate-300 rounded-3xl p-10 text-center transition-all group-hover:border-slate-900 group-hover:bg-slate-50">
+
+                  <Upload
+                    className="mx-auto text-slate-400 mb-4"
+                    size={36}
+                  />
+
+                  <p className="font-bold text-slate-800">
+                    {form.cv
+                      ? form.cv.name
+                      : "Click to upload your CV"}
                   </p>
-                  <p className="text-sm text-slate-400">PDF, DOC, DOCX up to 10MB</p>
+
+                  <p className="text-sm text-slate-500 mt-2">
+                    PDF only • Max 10MB
+                  </p>
                 </div>
               </div>
             </div>
 
+            {/* ERROR */}
+
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-5 py-4 rounded-2xl text-sm font-medium">
+                {error}
+              </div>
+            )}
+
+            {/* SUBMIT */}
+
             <button
               type="submit"
-              className="w-full bg-slate-900 hover:bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-xl transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2"
+              disabled={loading}
+              style={{
+                background: brand.colors.primary,
+              }}
+              className="w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3"
             >
-              Submit Application
-              <CheckCircle2 size={22} />
+              {loading ? (
+                <>
+                  <Loader2
+                    className="animate-spin"
+                    size={22}
+                  />
+                  {uploadingCv
+                    ? "Uploading CV..."
+                    : "Submitting..."}
+                </>
+              ) : (
+                <>
+                  Submit Application
+                  <CheckCircle2 size={22} />
+                </>
+              )}
             </button>
-
           </form>
         </div>
       </div>
@@ -212,13 +610,20 @@ export default function TeacherRegistration() {
   );
 }
 
-/* Helper Components to keep the main code clean */
+// =============================================================
+// HELPERS
+// =============================================================
 
 function SectionTitle({ icon, title }) {
   return (
-    <div className="flex items-center gap-2 mb-6 border-b border-slate-100 pb-3">
-      <span className="text-blue-600">{icon}</span>
-      <h2 className="text-xl font-bold text-slate-800">{title}</h2>
+    <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+      <span className="text-slate-700">
+        {icon}
+      </span>
+
+      <h2 className="text-xl font-black text-slate-900">
+        {title}
+      </h2>
     </div>
   );
 }
@@ -231,17 +636,27 @@ function Label({ children }) {
   );
 }
 
-function Input({ label, type = "text", name, value, onChange, placeholder }) {
+function Input({
+  label,
+  type = "text",
+  name,
+  value,
+  onChange,
+  placeholder,
+  required = false,
+}) {
   return (
     <div>
       <Label>{label}</Label>
+
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full bg-white border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-300 font-medium"
+        required={required}
+        className="w-full bg-white border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 outline-none transition-all placeholder:text-slate-400"
       />
     </div>
   );
