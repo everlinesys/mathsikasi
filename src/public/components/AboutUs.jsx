@@ -9,8 +9,15 @@ import {
   CheckCircle2,
   Zap
 } from "lucide-react";
+import {
+  Instagram,
+  Mail,
+  Phone,
+} from "lucide-react";
 
+import { useBranding } from "../../shared/hooks/useBranding";
 export default function About() {
+  const brand = useBranding();
   return (
     <div className="bg-[#f8f9fa] text-slate-900 min-h-screen font-sans">
       {/* HERO SECTION */}
@@ -35,7 +42,7 @@ export default function About() {
           </h1>
 
           <p className="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-            Empowering students through the core pillars of Science: 
+            Empowering students through the core pillars of Science:
             <span className="text-white font-semibold"> Physics, Chemistry, and Mathematics.</span> We transform complex theories into clear, actionable knowledge.
           </p>
         </motion.div>
@@ -57,8 +64,8 @@ export default function About() {
             </h2>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-10">
-              At Mathsikasi, we don't just teach subjects; we build analytical mindsets. 
-              Whether it's the laws of Physics, the reactions of Chemistry, or the logic of Mathematics, 
+              At Mathsikasi, we don't just teach subjects; we build analytical mindsets.
+              Whether it's the laws of Physics, the reactions of Chemistry, or the logic of Mathematics,
               we ensure every student masters the <span className="font-bold text-slate-900">why</span> before the <span className="font-bold text-slate-900">how</span>.
             </p>
 
@@ -93,7 +100,7 @@ export default function About() {
               <h3 className="text-4xl font-black text-slate-900">100%</h3>
               <p className="text-slate-500 text-sm font-medium uppercase tracking-wider mt-1">Concept Focus</p>
             </div>
-            
+
             <div className="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200 mt-8">
               <Beaker className="w-10 h-10 text-emerald-500 mb-4" />
               <h3 className="text-4xl font-black text-slate-900">8+</h3>
@@ -168,7 +175,7 @@ export default function About() {
         </div>
 
         {/* KERALA SYLLABUS BOX */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -177,15 +184,15 @@ export default function About() {
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-6">Kerala Syllabus Experts</h2>
             <p className="text-blue-100 text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
-              Specialized coaching for Class 8–10 and Plus One/Two. 
+              Specialized coaching for Class 8–10 and Plus One/Two.
               We focus on SCERT/NCERT patterns to ensure our students top their board exams.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-               {["High School", "Higher Secondary", "Degree Level"].map(tag => (
-                 <span key={tag} className="px-5 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-bold border border-white/20">
-                   {tag}
-                 </span>
-               ))}
+              {["High School", "Higher Secondary", "Degree Level"].map(tag => (
+                <span key={tag} className="px-5 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-bold border border-white/20">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20" />
@@ -193,10 +200,43 @@ export default function About() {
 
         {/* FOOTER */}
         <div className="mt-32 pt-12 border-t border-slate-200 text-center">
-          <h3 className="text-3xl font-black text-slate-900 mb-2">Mathsikasi</h3>
+          <h3 className="text-3xl font-black text-slate-900 mb-2">
+            Mathsikasi
+          </h3>
+
           <p className="text-slate-500 font-medium uppercase tracking-[0.2em] text-xs">
             The Science of Excellence
           </p>
+
+          <div className="flex items-center justify-center gap-4 mt-6 flex-wrap">
+
+            {/* Instagram */}
+            <a
+              href={brand.contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-2xl border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-900 hover:text-white transition-all duration-300"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+
+            {/* Email */}
+            <a
+              href={`mailto:${brand.contact.email}`}
+              className="w-12 h-12 rounded-2xl border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-900 hover:text-white transition-all duration-300"
+            >
+              <Mail className="w-5 h-5" />
+            </a>
+
+            {/* Call */}
+            <a
+              href={`tel:${brand.contact.phone}`}
+              className="w-12 h-12 rounded-2xl border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-900 hover:text-white transition-all duration-300"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
+
+          </div>
         </div>
       </div>
     </div>

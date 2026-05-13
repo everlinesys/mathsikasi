@@ -85,12 +85,14 @@
     ],
 
     "contact": {
-      "email": "support@mathsikasi.com",
+      "email": "mathsikasi@gmail.com",
       "phone": "+91 86061 33138",
-      "whatsapp": "+91 86061 33138",
+      "whatsapp": "+918606133138",
       "address": "Kerala, India",
       "supportName": "Mathsikasi Support",
-      "image": "/support-academic.jpg"
+      "image": "/support-academic.jpg",
+      "instagram":"https://www.instagram.com/mathsikasi"
+
     }
   }
 }

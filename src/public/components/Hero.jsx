@@ -219,7 +219,7 @@ export default function Hero() {
               onClick={() =>
                 setOpenWhatsapp(true)
               }
-              className="w-16 h-16 rounded-2xl bg-green-600 hover:bg-green-700 text-white shadow-2xl flex items-center justify-center transition hover:scale-110 active:scale-95"
+              className="w-16 h-16 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-2xl flex items-center justify-center transition hover:scale-110 active:scale-95"
             >
               <MdWhatsapp size={34} />
             </button>
