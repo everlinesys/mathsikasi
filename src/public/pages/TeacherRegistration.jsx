@@ -436,7 +436,7 @@ export default function TeacherRegistration() {
                 title="Location"
               />
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-6 text-black">
 
                 {/* COUNTRY */}
 
