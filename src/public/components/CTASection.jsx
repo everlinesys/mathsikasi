@@ -59,7 +59,7 @@ export default function CTASection() {
           </div>
 
           {/* RIGHT COLUMN: MAP CARD */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <div className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-2 backdrop-blur-sm">
               <iframe
                 title="Google Maps Location"
@@ -70,7 +70,6 @@ export default function CTASection() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
 
-              {/* Interaction Overlay */}
               <a
                 href={mapDirectUrl}
                 target="_blank"
@@ -84,7 +83,6 @@ export default function CTASection() {
               </a>
             </div>
 
-            {/* Address Footer */}
             <div className="flex items-center justify-between px-4">
               <div className="flex items-start gap-3 text-white/90">
                 <div className="mt-1 w-8 h-8 rounded-full bg-emerald-400/20 flex items-center justify-center">
@@ -108,7 +106,7 @@ export default function CTASection() {
                 <ArrowRight size={14} />
               </a>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </div>

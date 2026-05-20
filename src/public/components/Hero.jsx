@@ -141,10 +141,9 @@ export default function Hero() {
                 </a>
 
                 <a
-                  href={`tel:${
-                    brand.contact?.phone ||
+                  href={`tel:${brand.contact?.phone ||
                     "86061 33138"
-                  }`}
+                    }`}
                   className="text-lg font-black text-black flex items-center gap-1"
                 >
                   <span className="text-xl">
@@ -170,7 +169,7 @@ export default function Hero() {
           {openWhatsapp && (
             <div className="bg-white w-72 rounded-2xl shadow-2xl overflow-hidden mb-3 border border-gray-200">
 
-              <div className="bg-green-600 text-white px-4 py-3 flex justify-between items-center font-bold">
+              <div className="bg-green-800 text-white px-4 py-3 flex justify-between items-center font-bold">
                 WhatsApp Support
 
                 <button
@@ -202,7 +201,7 @@ export default function Hero() {
 
                 <button
                   onClick={openWhatsApp}
-                  className="w-full mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-full flex items-center justify-center gap-2"
+                  className="w-full mt-2 bg-green-800 hover:bg-green-700 text-white font-bold py-3 rounded-full flex items-center justify-center gap-2"
                 >
                   <MdWhatsapp size={22} />
 
@@ -219,8 +218,8 @@ export default function Hero() {
               onClick={() =>
                 setOpenWhatsapp(true)
               }
-              className="w-16 h-16 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-2xl flex items-center justify-center transition hover:scale-110 active:scale-95"
-            >
+              className="w-16 h-16 rounded-full bg-green-800 hover:bg-green-700 text-white shadow-2xl flex items-center justify-center transition hover:scale-110 active:scale-95"
+              style={{ borderRadius: "30%" }}  >
               <MdWhatsapp size={34} />
             </button>
           )}

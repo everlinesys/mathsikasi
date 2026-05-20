@@ -93,7 +93,7 @@ export default function CourseDetails() {
 
       {/* ===== HERO ===== */}
       <div
-        className="text-white py-16 md:px-16 lg:px-16"
+        className="text-white py-16 md:px-16 lg:px-16 "
         style={{ backgroundColor: primary }}
       >
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
