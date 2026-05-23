@@ -25,8 +25,7 @@ export default function Hero() {
   const subjects =
     brand.hero?.subjects || [
       "Mathematics",
-      "Physics",
-      "Chemistry",
+      "Other Subjects",
     ];
 
   const classes =
