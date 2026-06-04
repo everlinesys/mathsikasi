@@ -3,14 +3,14 @@
     "siteName": "Mathsikasi",
     "tagline": "Strong Foundations. Confident Students.",
 
-    "primaryColor": "#1e3a8a", 
+    "primaryColor": "#1e3a8a",
     "theme": "formalLight",
 
     "logo": "/logo.png",
     "students": "500+",
 
     "colors": {
-      "primary": "#1e3a8a", 
+      "primary": "#1e3a8a",
       "accent": "#a6a6a6",
       "secondary": "#334155",
       "background": "#f8fafc"
@@ -68,19 +68,25 @@
         "name": "Fathima Jahana",
         "role": "Student",
         "rating": 5,
-        "text": "I am Fathima Jahana, and I completed my Plus Two in 2026 from IUHSS Parappur. I joined Mathsikasi tuition for Mathematics and Physics during my Plus One studies. Before joining Mathsikasi, I had secured a B+ in Plus One Physics and a C+ in Plus One Mathematics. After attending the classes, I was able to improve my performance and secured an A+ in Physics and an A in Mathematics in the public examination. The classes were clear and helpful, and the teachers provided good support and guidance throughout the course."
+        "text": "I am Fathima Jahana, and I completed my Plus Two in 2026 from IUHSS Parappur. I joined Mathsikasi tuition for Mathematics and Physics during my Plus One studies.\n\nBefore joining Mathsikasi, I had secured a B+ in Plus One Physics and a C+ in Plus One Mathematics. After attending the classes, I was able to improve my performance and secured an A+ in Physics and an A in Mathematics in the public examination.\n\nThe classes were clear and helpful, and the teachers provided good support and guidance throughout the course."
+      },
+      {
+        "name": "Sreeya Lakshmi",
+        "role": "Plus two Student",
+        "rating": 5,
+        "text": "I'm Sreeya Lakshmi. I studied at IUHSS Parappur. I was a regular class student at Mathsikasi.\n\nIn Plus One, my marks were very low before joining the class. After joining, my Plus One marks improved a lot, and I scored 72/80 in Mathematics.\n\nIn Plus Two also, my marks were low in the beginning, but after attending the classes, they improved well. I scored around 90% overall.\n\nThe classes helped me get more clarity in Mathematics. The detailed explanation of questions and regular practice helped me improve my Maths studies."
       },
       {
         "name": "Abraham",
         "role": "Birla Public School, Qatar | Maths revision grade 12",
         "rating": 5,
-        "text": "Scored 74/100 in Maths for Board Exam. Previous scores were very low.Better understanding of the chapters and good revision practices. Support and guidance received from Mathsikasi :  It was timely and very helpful . He is more confident in the subject than before. Appreciate Sruthi Ma’am’s support to take classes when we really needed help. Thank a lot Maam.📝 Overall learning experience : Excellent experience. Would highly recommend the classes for benefit of students."
+        "text": "Scored 74/100 in Maths for Board Exam. Previous scores were very low.\n\nBetter understanding of the chapters and good revision practices.\n\nSupport and guidance received from Mathsikasi: It was timely and very helpful. He is more confident in the subject than before. Appreciate Sruthi Ma’am’s support to take classes when we really needed help. Thank a lot Maam.\n\n📝 Overall learning experience: Excellent experience. Would highly recommend the classes for benefit of students."
       },
       {
         "name": "Ryan Sebastian",
         "role": "IUHSS Parapur | +1 Revision",
         "rating": 5,
-        "text": "The teacher discussed the entire subject in a very short span of time and as easily as possible. Will Suggest to Everyone. (Score impeoved to 88.75/100 in Board Exam)"
+        "text": "The teacher discussed the entire subject in a very short span of time and as easily as possible. Will Suggest to Everyone.\n\n(Score improved to 88.75/100 in Board Exam)"
       }
     ],
 
@@ -91,8 +97,7 @@
       "address": "Kerala, India",
       "supportName": "Mathsikasi Support",
       "image": "/support-academic.jpg",
-      "instagram":"https://www.instagram.com/mathsikasi"
-
+      "instagram": "https://www.instagram.com/mathsikasi"
     }
   }
 }
