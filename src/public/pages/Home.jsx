@@ -8,11 +8,13 @@ import FeaturedCoursesStrip from "../components/CourseStrip";
 import Team from "../components/Team";
 
 import AboutUs from "../components/AboutUs";
+import Expired from "../components/Expired";
 
 
 export default function Home() {
   return (
     <div className="">
+      <Expired />
       <Hero />
       <PreviewVideo />
 
